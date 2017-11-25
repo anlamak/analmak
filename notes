@@ -1,22 +1,25 @@
-geth --rpc --rpcaddr 10.132.0.2 --rpcport 8545
 
 curl 35.205.153.12:8545 -X POST --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}
 
 # Expected {"jsonrpc":"2.0","id":67,"result":"Geth/v1.7.2-stable-1db4ecdc/linux-amd64/go1.9"}
 
-
 geth --rpc --rpcaddr 10.132.0.2 --rpcport 8545
+
 
 
 https://github.com/JoinMarket-Org/joinmarket/wiki/Installing-the-libsecp256k1-binding
 https://github.com/ludbb/secp256k1-py#installation-with-compilation
 
-  On Debian / Ubuntu: build-essential automake pkg-config libtool libffi-dev libgmp-dev python-dev/python3-dev
+#On Debian / Ubuntu: build-essential automake pkg-config libtool libffi-dev libgmp-dev python-dev/python3-dev
 
-  sudo apt-get install libssl-dev
+#sudo apt-get install libssl-dev
 
-On OS X the necessary homebrew packages are: automake pkg-config libtool libffi gmp
+#On OS X the necessary homebrew packages are: automake pkg-config libtool libffi gmp
 
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+https://github.com/ethereum/go-ethereum/wiki/Running-in-Docker
 
 docker pull ethereum/client-go:alpine
-docker run -it -p 8545:8545 -p 30303:30303 ethereum/client-go:alpine --rpc --rpcaddr "10.132."
+docker run -it -p 8545:8545 -p 30303:30303 ethereum/client-go:alpine --rpc --rpcaddr "10.132.0.2"
