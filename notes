@@ -16,3 +16,7 @@ https://github.com/ludbb/secp256k1-py#installation-with-compilation
   sudo apt-get install libssl-dev
 
 On OS X the necessary homebrew packages are: automake pkg-config libtool libffi gmp
+
+
+docker pull ethereum/client-go:alpine
+docker run -it -p 8545:8545 -p 30303:30303 ethereum/client-go:alpine --rpc --rpcaddr "10.132."
