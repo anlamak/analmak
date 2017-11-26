@@ -22,4 +22,24 @@ https://github.com/ludbb/secp256k1-py#installation-with-compilation
 https://github.com/ethereum/go-ethereum/wiki/Running-in-Docker
 
 docker pull ethereum/client-go:alpine
-docker run -it -p 8545:8545 -p 30303:30303 ethereum/client-go:alpine --rpc --rpcaddr "10.132.0.2"
+docker run -it -p 8545:8545 -p 30303:30303 ethereum/client-go:alpine --rpc --rpcaddr "0.0.0.0"
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+EtherDelta
+
+https://github.com/etherdelta/etherdelta.github.io/issues/225
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Google Cloud Python Client Lib
+
+pip install --upgrade google-api-python-client
+pip install --upgrade google-api-python-client-py3
+
+#Also requires
+pip install PyOpenSSL
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+git push -u origin master
