@@ -13,7 +13,7 @@ def connectCompute():
             'https://www.googleapis.com/auth/cloud-platform']
 
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        '<PATH_TO_KEY>', scopes)
+        '<PATH_TO_KEYFILE>', scopes)
 
     return googleapiclient.discovery.build('compute', 'v1', credentials=credentials)
 
@@ -26,8 +26,9 @@ def getFirewallRule(compute, project, name):
         return False
 
 def addNewRule(compute, project, name, myIP):
+    rule = "geth-allow-" + name
     config = {
-        "name": "geth-allow-" + name,
+        "name": rule,
         "selfLink": "projects/node-186621/global/firewalls/geth-allow-" + name,
         "network": "projects/node-186621/global/networks/default",
         "direction": "INGRESS",
@@ -49,7 +50,30 @@ def addNewRule(compute, project, name, myIP):
         project=project,
         body=config).execute()
 
-
+def updateRule(compute, project, name, myIP):
+    rule = "geth-allow-" + name
+    config = {
+        "name": rule,
+        "selfLink": "projects/node-186621/global/firewalls/geth-allow-" + name,
+        "network": "projects/node-186621/global/networks/default",
+        "direction": "INGRESS",
+        "priority": 1000,
+        "targetTags": [
+            "geth"
+        ],
+        "allowed": [
+            {
+                "IPProtocol": "all"
+            }
+        ],
+        "sourceRanges": [
+            myIP + "/32"
+        ]
+    }
+    return compute.firewalls().update(
+        project=project,
+        body=config,
+        firewall=rule).execute()
 
 def getallowedIP(firewallRule):
     ipString = firewallRule.get("sourceRanges", False)
@@ -82,10 +106,12 @@ if __name__ == "__main__":
         exit(1)  # Shouldn't ever get to this.
     elif gcpIP != myIP:
         print("Allowed gcpIP is not the same as my public IP")
-        # TODO updateRule(myIP)
-        exit(1)  # and complete above
+        updateRule(compute, 'node-186621', args.name, myIP)
+        print("Rule updated")
+        exit(0)  # and compete above
     else:
         print("All's good!")
+        exit(0)
 
 
 
