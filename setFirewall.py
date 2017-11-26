@@ -1,4 +1,5 @@
 import ipgetter
+import argparse
 import ast
 from oauth2client.service_account import ServiceAccountCredentials
 import googleapiclient.discovery
@@ -12,13 +13,42 @@ def connectCompute():
             'https://www.googleapis.com/auth/cloud-platform']
 
     credentials = ServiceAccountCredentials.from_json_keyfile_name(
-        '.keys/node-3827634af604.json', scopes)
+        '<PATH_TO_KEY>', scopes)
 
     return googleapiclient.discovery.build('compute', 'v1', credentials=credentials)
 
 
 def getFirewallRule(compute, project, name):
-    return compute.firewalls().get(project=project, firewall=name).execute()
+    try:
+        return compute.firewalls().get(project=project, firewall="geth-allow-" + name).execute()
+    except googleapiclient.errors.HttpError as e:
+        print(e)  #TODO Parse exception and confirm was actually 404 rule was not found
+        return False
+
+def addNewRule(compute, project, name, myIP):
+    config = {
+        "name": "geth-allow-" + name,
+        "selfLink": "projects/node-186621/global/firewalls/geth-allow-" + name,
+        "network": "projects/node-186621/global/networks/default",
+        "direction": "INGRESS",
+        "priority": 1000,
+        "targetTags": [
+            "geth"
+        ],
+        "allowed": [
+            {
+                "IPProtocol": "all"
+            }
+        ],
+        "sourceRanges": [
+            myIP + "/32"
+        ]
+    }
+    print(project)
+    return compute.firewalls().insert(
+        project=project,
+        body=config).execute()
+
 
 
 def getallowedIP(firewallRule):
@@ -29,19 +59,33 @@ def getallowedIP(firewallRule):
         ipList = ast.literal_eval(str(ipString))
         return ipList[0].replace(" ", "").rstrip(ipList[0][-3:]).upper()
 
-compute = connectCompute()
-firewallRule = getFirewallRule(compute, 'node-186621', 'geth')
-myIP = getPublicIP()
-gcpIP = getallowedIP(firewallRule)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Ensure correct IP whitelisted in GCP')
+    parser.add_argument('name', help='first name')
+    args = parser.parse_args()
 
-if gcpIP is False:
-    print("gcpIP does not exist")
-    pass  # TODO addNewRule(myIP)
-elif gcpIP != myIP:
-    print("allowed gcpIP is not the same as my public IP")
-    pass  # TODO updateRule(myIP)
-else:
-    print("All's good!")
+    myIP = getPublicIP()
+
+    compute = connectCompute()
+    firewallRule = getFirewallRule(compute, 'node-186621', args.name)
+    if firewallRule is False:  # Probably this is the first time you are running this script so the rule doesn't exist
+        addNewRule(compute, 'node-186621', args.name, myIP)
+        try:
+            firewallRule = compute.firewalls().get(project=project, firewall="geth-allow-" + name).execute()
+        except googleapiclient.errors.HttpError as e:
+            print(e)
+            exit(1)
+
+    gcpIP = getallowedIP(firewallRule)
+
+    if gcpIP is False:
+        exit(1)  # Shouldn't ever get to this.
+    elif gcpIP != myIP:
+        print("Allowed gcpIP is not the same as my public IP")
+        # TODO updateRule(myIP)
+        exit(1)  # and complete above
+    else:
+        print("All's good!")
 
 
 
@@ -52,7 +96,7 @@ else:
 
 
 
-IP = ipgetter.myip()
+
 
 
 
