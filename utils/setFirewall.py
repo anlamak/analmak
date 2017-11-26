@@ -4,6 +4,8 @@ import ast
 from oauth2client.service_account import ServiceAccountCredentials
 import googleapiclient.discovery
 
+# Tested on 2.7.10 (default, Feb  7 2017, 00:08:15) [GCC 4.2.1 Compatible Apple LLVM 8.0.0 (clang-800.0.34)]
+
 def getPublicIP():
     return ipgetter.myip()
 
