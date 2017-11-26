@@ -31,7 +31,7 @@ def addNewRule(compute, project, name, myIP):
     rule = "geth-allow-" + name
     config = {
         "name": rule,
-        "selfLink": "projects/node-186621/global/firewalls/geth-allow-" + name,
+        "selfLink": "projects/node-186621/global/firewalls/" + rule,
         "network": "projects/node-186621/global/networks/default",
         "direction": "INGRESS",
         "priority": 1000,
@@ -56,7 +56,7 @@ def updateRule(compute, project, name, myIP):
     rule = "geth-allow-" + name
     config = {
         "name": rule,
-        "selfLink": "projects/node-186621/global/firewalls/geth-allow-" + name,
+        "selfLink": "projects/node-186621/global/firewalls/" + rule,
         "network": "projects/node-186621/global/networks/default",
         "direction": "INGRESS",
         "priority": 1000,
@@ -103,6 +103,8 @@ if __name__ == "__main__":
             exit(1)
 
     gcpIP = getallowedIP(firewallRule)
+    if gcpIP is False:
+        exit(1)
 
     if gcpIP is False:
         exit(1)  # Shouldn't ever get to this.
