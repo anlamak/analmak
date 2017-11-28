@@ -3,6 +3,10 @@ import json
 import googleapiclient.discovery
 import subprocess
 
+# API: https://developers.google.com/resources/api-libraries/
+#   documentation/cloudresourcemanager/v1/python/latest/
+#   cloudresourcemanager_v1.folders.html#setOrgPolicy
+
 # Settings:
 _path_to_gcloud = "<FULL-PATH-TO-GCLOUD>"
 _org = "<ORG-ID>"  # Org ID
