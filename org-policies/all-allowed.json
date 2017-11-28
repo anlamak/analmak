@@ -1,0 +1,12 @@
+{
+	"policy": {
+		"constraint": "constraints/serviceuser.services",
+		"listPolicy": {
+			"allowedValues": [
+				"compute.googleapis.com"
+			]
+		}
+	}
+}
+
+
