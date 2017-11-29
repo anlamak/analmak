@@ -22,7 +22,7 @@ https://github.com/ludbb/secp256k1-py#installation-with-compilation
 https://github.com/ethereum/go-ethereum/wiki/Running-in-Docker
 
 docker pull ethereum/client-go:alpine
-docker run -it -p 8545:8545 -p 30303:30303 ethereum/client-go:alpine --rpc --rpcaddr "0.0.0.0"
+docker run -d -p 8545:8545 -p 30303:30303 ethereum/client-go:alpine --rpc --rpcaddr "0.0.0.0"
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
@@ -43,3 +43,48 @@ pip install PyOpenSSL
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 git push -u origin master
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+gcloud alpha resource-manager org-policies describe \
+  --organization 865992059458 serviceuser.services
+
+
+gcloud alpha resource-manager org-policies deny \
+  --organization 865992059458] \
+  serviceuser.services compute.googleapis.com
+
+gcloud beta billing projects link nocompute-187321 --billing-account=004563-ED4925-B3FE57
+
+constraint: constraints/serviceuser.services
+  listPolicy:
+    deniedValues:
+      - cloudresourcesearch.googleapis.com
+    inheritFromParent: true
+
+
+    gcloud organizations add-iam-policy-binding 865992059458 \
+     --member user:paul@demo.cloud.paulmattei.com --role roles/orgpolicy.PolicyAdmin
+
+
+
+     gcloud beta billing projects link nocompute-existing --billing-account=004563-ED4925-B3FE57
+
+
+
+gcloud beta resource-manager org-policies list --folder=103346873527 --format json > folder_org_policy.json
+
+gcloud beta resource-manager org-policies list --organization=865992059458 --format json > org_policy.json
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+bq show --format prettyjson bigquery-public-data:github_repos.files | jq '.schema.fields'
+
+http://pygal.org/en/stable/documentation/index.html
+
+
+
+install the stackdriver monitoring agent
+
+https://cloud.google.com/monitoring/agent/install-agent

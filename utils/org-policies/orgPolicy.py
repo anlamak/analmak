@@ -3,16 +3,12 @@ import json
 import googleapiclient.discovery
 import subprocess
 
-# API: https://developers.google.com/resources/api-libraries/
-#   documentation/cloudresourcemanager/v1/python/latest/
-#   cloudresourcemanager_v1.folders.html#setOrgPolicy
-
 # Settings:
-_path_to_gcloud = "<FULL-PATH-TO-GCLOUD>"
-_org = "<ORG-ID>"  # Org ID
-_data_folder = "<FOLDER-ID>"  # Folder ID
-_non_data_folder = "<FOLDER-ID>"  # Folder ID
-_project1 = "<PROJECT-ID>"
+_path_to_gcloud = ""
+_org = "<ORG-ID>"
+_data_folder = "<FOLDER-ID"
+_non_data_folder = "<FOLDER-ID>"
+_project1 = "PROJECT-ID"
 #+++++++++++++++++++++++++++++++
 _constraint = {
     "constraint": "constraints/serviceuser.services"
@@ -46,7 +42,7 @@ def getOrgPolicy(crm, type, resource, body):
         return crm.projects().getOrgPolicy(resource=resource, body=body, x__xgafv=None)
     if type.lower() == "organization":
         return crm.organizations().getOrgPolicy(resource=resource, body=body, x__xgafv=None)
-    if type.lower() == "folder":
+    if type.lower() == 'folder':
         return crm.folders().getOrgPolicy(resource=resource, body=body, x__xgafv=None)
 
 def getEffectiveOrgPolicy(crm, type, resource, body):
@@ -91,34 +87,31 @@ def checkApis(project):
     print "The APIs Enabled on " + project + ":"
     print getEnabledApis(project)
 
-
-
 if __name__ == "__main__":
 
     session = connect()
     crm = getCloudResourceManager(session)
 
-    '''
+    checkPolicies(crm, _org, _data_folder, _project1, _constraint)
+
     # Apply Org Policy
-    with open('compute-denied-policy.json') as org_policy:
-        data = json.load(org_policy)
-        setOrgPolicy(crm, "organization", "organizations/" + _org, body=data).execute()
-
+    #with open('compute-denied-policy.json') as org_policy:
+    #    data = json.load(org_policy)
+    #    setOrgPolicy(crm, "organization", "organizations/" + _org, body=data).execute()
     # Apply Folder Policy
-    with open('compute-allowed-policy.json') as folder_policy:
-        data = json.load(folder_policy)
-        setOrgPolicy(crm, "folder", "folders/" + _data_folder, body=data).execute()
-
-    # Apply Project Policy
     with open('reset-default.json') as folder_policy:
         data = json.load(folder_policy)
         setOrgPolicy(crm, "folder", "folders/" + _data_folder, body=data).execute()
-    '''
+    # Apply Project Policy
+    #with open('reset-default.json') as project_policy:
+    #    data = json.load(project_policy)
+    #    setOrgPolicy(crm, "project", "projects/" + _project1, body=data).execute()
+
+
+ #   print disableComputeEngineApi(_project1)
+ #   print enableComputeEngineApi(_project1)
+ #   print disableDataprocApi(_project1)
+ #   print enableDataprocApi(_project1)
+
     checkPolicies(crm, _org, _data_folder, _project1, _constraint)
-    checkApis(_project1)
-    '''
-    print disableComputeEngineApi(_project1)
-    print enableComputeEngineApi(_project1)
-    print disableDataprocApi(_project1)
-    print enableDataprocApi(_project1)
-    '''
+    #checkApis(_project1)
