@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ddf772cd-6a73-4a95-944a-50daa207bfa7" name="Default" comment="">
-      <change type="MOVED" beforePath="$PROJECT_DIR$/org-policies/all-allowed.json" afterPath="$PROJECT_DIR$/utils/org-policies/all-allowed.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/org-policies/compute-allowed-policy.json" afterPath="$PROJECT_DIR$/utils/org-policies/compute-allowed-policy.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/org-policies/compute-denied-policy.json" afterPath="$PROJECT_DIR$/utils/org-policies/compute-denied-policy.json" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/org-policies/orgPolicy.py" afterPath="$PROJECT_DIR$/utils/org-policies/orgPolicy.py" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/org-policies/reset-default.json" afterPath="$PROJECT_DIR$/utils/org-policies/reset-default.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/notes" afterPath="$PROJECT_DIR$/notes" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/notes" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -140,6 +134,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="node" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utils" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>

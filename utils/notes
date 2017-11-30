@@ -1,11 +1,16 @@
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Test Geth
+
+
 curl 35.205.153.12:8545 -X POST --data '{"jsonrpc":"2.0","method":"web3_clientVersion","params":[],"id":67}
 
 # Expected {"jsonrpc":"2.0","id":67,"result":"Geth/v1.7.2-stable-1db4ecdc/linux-amd64/go1.9"}
 
 geth --rpc --rpcaddr 10.132.0.2 --rpcport 8545
 
-
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 https://github.com/JoinMarket-Org/joinmarket/wiki/Installing-the-libsecp256k1-binding
 https://github.com/ludbb/secp256k1-py#installation-with-compilation
@@ -52,10 +57,10 @@ gcloud alpha resource-manager org-policies describe \
 
 
 gcloud alpha resource-manager org-policies deny \
-  --organization 865992059458] \
+  --organization ${ORG_ID} \
   serviceuser.services compute.googleapis.com
 
-gcloud beta billing projects link nocompute-187321 --billing-account=004563-ED4925-B3FE57
+gcloud beta billing projects link nocompute-187321 --billing-account=${BILLING_ACCOUNT_ID}
 
 constraint: constraints/serviceuser.services
   listPolicy:
@@ -64,8 +69,8 @@ constraint: constraints/serviceuser.services
     inheritFromParent: true
 
 
-    gcloud organizations add-iam-policy-binding 865992059458 \
-     --member user:paul@demo.cloud.paulmattei.com --role roles/orgpolicy.PolicyAdmin
+    gcloud organizations add-iam-policy-binding ${ORG_ID} \
+     --member user:${DEMO_USER} --role roles/orgpolicy.PolicyAdmin
 
 
 
@@ -83,8 +88,14 @@ bq show --format prettyjson bigquery-public-data:github_repos.files | jq '.schem
 
 http://pygal.org/en/stable/documentation/index.html
 
-
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 install the stackdriver monitoring agent
 
 https://cloud.google.com/monitoring/agent/install-agent
+
+
+
+
+eval "$(ssh-agent -s)"
+ssh-add ${key-path}
