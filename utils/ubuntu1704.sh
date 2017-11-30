@@ -1,5 +1,5 @@
 sudo apt-get update
-sudo apt-get install \
+sudo apt-get install -y \
 apt-transport-https \
 ca-certificates \
 curl \
@@ -16,6 +16,6 @@ sudo add-apt-repository \
 
 sudo apt-get update
 
-sudo apt-get install docker-ce
+sudo apt-get install -y docker-ce
 
-docker run -d -p 8545:8545 -p 30303:30303 ethereum/client-go:alpine --rpc --rpcaddr "0.0.0.0"
+sudo docker run -d -p 8545:8545 -p 30303:30303 ethereum/client-go:alpine --rpc --rpcaddr "0.0.0.0"
