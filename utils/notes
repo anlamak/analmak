@@ -53,14 +53,14 @@ git push -u origin master
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 gcloud alpha resource-manager org-policies describe \
-  --organization 865992059458 serviceuser.services
+  --organization ${ORG_ID} serviceuser.services
 
 
 gcloud alpha resource-manager org-policies deny \
   --organization ${ORG_ID} \
   serviceuser.services compute.googleapis.com
 
-gcloud beta billing projects link nocompute-187321 --billing-account=${BILLING_ACCOUNT_ID}
+gcloud beta billing projects link ${PROJECT_ID} --billing-account=${BILLING_ACCOUNT_ID}
 
 constraint: constraints/serviceuser.services
   listPolicy:
